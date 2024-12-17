@@ -102,6 +102,7 @@ const htmlQuestions = [
   var announcement = document.getElementById("announcement")
   var scoring = document.getElementById("scoring")
 
+  
 
 
   var currQue = 0;
@@ -122,7 +123,6 @@ const htmlQuestions = [
     
     
   }
-
   function next() {
     var radioChecked = false
     for (var i = 0; i < quizOpt.length; i++) {
@@ -160,9 +160,14 @@ function deSelect() {
 }
 }
   
+
 function displayResult() {
+
+  
     quizShow.style.display = 'none'
     resultShow.style.display = "block";
+
+  
 
     var totalQ = document.getElementById('totalQuestions')
     var correctQ = document.getElementById('correctQuestions')
@@ -180,41 +185,56 @@ function displayResult() {
         perc.classList.add('text-danger');
     } else {
         result = 'Congratulations You have successfully completed the challenge'
-        announcement.style.color = "green"
+        announcement.style.color = "green/"
     }
     announcement.innerHTML = result
     totalQ.innerHTML = htmlQuestions.length;
     correctQ.innerHTML = score;
-    // scoring.innerHTML = `${score} out of ${htmlQuestions.length} and your percentage is ${percents} %`
+    scoring.innerHTML = `${score} out of ${htmlQuestions.length} and your percentage is ${percents} %`
     perc.innerHTML = percents;
+
+    var resultQuiz = {
+      score: score,
+      totalQuestions: htmlQuestions.length,
+      percents: percents,
+
+    }
+  
+localStorage.setItem('result', JSON.stringify(resultQuiz));
+
 }
 
+var resultStored = JSON.parse(localStorage.getItem('result'))
 
-window.onload = renderQuestion()
-
-// var resultWindow = document.getElementById('resultWindow');
-const quizResult = {
-  totalQuestions: htmlQuestions.length,
-  correctQuestions: score,
-  percentage: Math.floor(score / htmlQuestions.length * 100),
-  date: new Date() 
-};
-
-localStorage.setItem('quizResult', JSON.stringify(quizResult));
-
-function checkAttemp() {
-  const storedResult = localStorage.getItem('quizResult');
-  if (storedResult) {
-
-    const parsedResult = JSON.parse(storedResult);
-    
-    document.body.textContent = parsedResult;
-    console.log(parsedResult); 
-    
-    
-  } else {
-    window.location = 'htmlQuizStart.html'
-    
-  }
+if (resultStored) {
+  quizShow.style.display = 'none'
   
+  resultShow.style.display = "block";
+  var totalQ = document.getElementById('totalQuestions')
+  var correctQ = document.getElementById('correctQuestions')
+  var perc = document.getElementById('perc')
+  var circle = document.getElementById('circle')
+
+  var percents = Math.floor(score / htmlQuestions.length * 100)
+  var result = "";
+  if (resultStored.percents < 70) {
+      result = 'Better luck next time , You are Failed!'
+      announcement.style.color = "red"
+      circle.classList.remove("border-success");
+      circle.classList.add('border-danger');
+      perc.classList.remove('text-success');
+      perc.classList.add('text-danger');
+  } else {
+      result = 'Congratulations You have successfully completed the challenge'
+      announcement.style.color = "green/"
+  }
+  announcement.innerHTML = result
+    totalQ.innerHTML = resultStored.totalQuestions;
+    correctQ.innerHTML = resultStored.score;
+    scoring.innerHTML = `${resultStored.score} out of ${resultStored.totalQuestions} and your percentage is ${resultStored.percents} %`
+    perc.innerHTML = resultStored.percents;
+  
+} else {
+  window.onload = renderQuestion()
+
 }

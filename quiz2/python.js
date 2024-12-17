@@ -182,6 +182,8 @@ function deSelect() {
 }
   
 function displayResult() {
+
+
     quizShow.style.display = 'none'
     resultShow.style.display = "block";
 
@@ -207,7 +209,53 @@ function displayResult() {
     totalQ.innerHTML = pythonQuestions.length;
     correctQ.innerHTML = score;
     perc.innerHTML = percents;
+
+    var resultQuiz = {
+      score: score,
+      totalQuestions: pythonQuestions.length,
+      percents: percents,
+
+    }
+  
+localStorage.setItem('resultPython', JSON.stringify(resultQuiz));
+
 }
 
-window.onload = renderQuestionPython()
+
+
+var resultStored = JSON.parse(localStorage.getItem('resultPython'))
+
+if (resultStored) {
+  quizShow.style.display = 'none'
+  
+  resultShow.style.display = "block";
+  var totalQ = document.getElementById('totalQuestions')
+  var correctQ = document.getElementById('correctQuestions')
+  var perc = document.getElementById('perc')
+  var circle = document.getElementById('circle')
+
+  var percents = Math.floor(score / pythonQuestions.length * 100)
+  var result = "";
+  if (resultStored.percents < 70) {
+      result = 'Better luck next time , You are Failed!'
+      announcement.style.color = "red"
+      circle.classList.remove("border-success");
+      circle.classList.add('border-danger');
+      perc.classList.remove('text-success');
+      perc.classList.add('text-danger');
+  } else {
+      result = 'Congratulations You have successfully completed the challenge'
+      announcement.style.color = "green/"
+  }
+  announcement.innerHTML = result
+    totalQ.innerHTML = resultStored.totalQuestions;
+    correctQ.innerHTML = resultStored.score;
+    // scoring.innerHTML = `${resultStored.score} out of ${resultStored.totalQuestions} and your percentage is ${resultStored.percents} %`
+    perc.innerHTML = resultStored.percents;
+  
+} else {
+  window.onload = renderQuestionPython()
+
+}
+
 

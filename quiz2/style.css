@@ -62,6 +62,7 @@
   
   .navbar a:hover {
     opacity: 0.8;
+    color: var(--button-text);
   }
   
   /* Headings */
@@ -70,17 +71,17 @@
   }
   
   /* Buttons */
-  .btn, .btn-primary {
+  .btn1, .btn1-primary {
     background-color: var(--button-bg);
     color: var(--button-text);
     border: none;
-    padding: 10px 20px;
+    padding: 8px 16px;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease-in-out;
   }
   
-  btn:hover,btn-primary:hover {
+  btn1:hover,btn1-primary:hover {
     opacity: 0.9;
   }
   
