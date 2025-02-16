@@ -164,3 +164,85 @@ console.log(myMotercycle.getInfo());
 
 console.log(myCar.getInfo());
 console.log(yourCar.getInfo());
+
+class BankAccount {
+    private balance: number;
+    private readonly accountNumber: string;
+    constructor(balance: number, accountNumber: string) {
+        this.balance = balance;
+        this.accountNumber = accountNumber;
+    }
+    getBalance() {
+        return this.balance;
+    }
+    getAccountNumber() {
+        return this.accountNumber;
+    }
+    deposit(amount: number) {
+        // return this.getBalance() + amount;
+        this.balance += amount;
+        console.log(`Deposited: $${amount}. New Balance: $${this.balance}`);
+        return this.balance;
+    }
+
+    withdraw(amount: number) {
+        if (amount > this.balance) {
+            throw new Error('Insufficient funds');
+        } 
+        this.balance -= amount;
+        console.log(`Withdrew: $${amount}. New Balance: $${this.balance}`);
+        return this.balance;
+    }   
+}
+
+const myAccount = new BankAccount(1000, '1234567890');
+const my2Account = new BankAccount(9999, '1234567899');
+console.log(myAccount.withdraw(200));
+// console.log(myAccount.withdraw(2000)); //Errror
+console.log(myAccount.deposit(2000));
+my2Account.deposit(300)
+my2Account.withdraw(888)
+const ahmedAccount = new BankAccount(100, '1985623');
+console.log(ahmedAccount.getBalance());
+console.log(ahmedAccount.getAccountNumber());
+console.log(ahmedAccount.deposit(999));
+console.log(ahmedAccount.withdraw(1099));
+
+abstract class Shape {
+    protected color: string;
+    constructor(color: string) {
+        this.color = color;
+    }
+    abstract calculateArea(): void;
+      getColor() : string {
+        return this.color;
+      }
+} 
+
+    class Circle extends Shape {
+        radius: number;
+        constructor(color: string, radius: number) {
+            super(color);
+            this.radius = radius;
+        }
+        calculateArea(): number {
+            return Math.PI * this.radius * this.radius;
+        }
+    }
+    class Rectangle extends Shape {
+        width: number;
+        length: number;
+        constructor(color: string, width: number, length: number) {
+            super(color);
+            this.width = width;
+            this.length = length;
+        }
+        calculateArea(): number {
+            return this.width * this.length;
+        }
+    }
+    const circle = new Circle('red', 4)
+    console.log(circle.calculateArea());
+    const rectangle = new Rectangle('green', 7, 8)
+    console.log(rectangle.calculateArea());
+    

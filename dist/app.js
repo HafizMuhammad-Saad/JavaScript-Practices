@@ -71,4 +71,73 @@ console.log(yourMotercycle.getInfo());
 console.log(myMotercycle.getInfo());
 console.log(myCar.getInfo());
 console.log(yourCar.getInfo());
+class BankAccount {
+    constructor(balance, accountNumber) {
+        this.balance = balance;
+        this.accountNumber = accountNumber;
+    }
+    getBalance() {
+        return this.balance;
+    }
+    getAccountNumber() {
+        return this.accountNumber;
+    }
+    deposit(amount) {
+        // return this.getBalance() + amount;
+        this.balance += amount;
+        console.log(`Deposited: $${amount}. New Balance: $${this.balance}`);
+        return this.balance;
+    }
+    withdraw(amount) {
+        if (amount > this.balance) {
+            throw new Error('Insufficient funds');
+        }
+        this.balance -= amount;
+        console.log(`Withdrew: $${amount}. New Balance: $${this.balance}`);
+        return this.balance;
+    }
+}
+const myAccount = new BankAccount(1000, '1234567890');
+const my2Account = new BankAccount(9999, '1234567899');
+console.log(myAccount.withdraw(200));
+// console.log(myAccount.withdraw(2000)); //Errror
+console.log(myAccount.deposit(2000));
+my2Account.deposit(300);
+my2Account.withdraw(888);
+const ahmedAccount = new BankAccount(100, '1985623');
+console.log(ahmedAccount.getBalance());
+console.log(ahmedAccount.getAccountNumber());
+console.log(ahmedAccount.deposit(999));
+console.log(ahmedAccount.withdraw(1099));
+class Shape {
+    constructor(color) {
+        this.color = color;
+    }
+    getColor() {
+        return this.color;
+    }
+}
+class Circle extends Shape {
+    constructor(color, radius) {
+        super(color);
+        this.radius = radius;
+    }
+    calculateArea() {
+        return Math.PI * this.radius * this.radius;
+    }
+}
+class Rectangle extends Shape {
+    constructor(color, width, length) {
+        super(color);
+        this.width = width;
+        this.length = length;
+    }
+    calculateArea() {
+        return this.width * this.length;
+    }
+}
+const circle = new Circle('red', 4);
+console.log(circle.calculateArea());
+const rectangle = new Rectangle('green', 7, 8);
+console.log(rectangle.calculateArea());
 //# sourceMappingURL=app.js.map
