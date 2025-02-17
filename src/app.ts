@@ -246,3 +246,154 @@ abstract class Shape {
     const rectangle = new Rectangle('green', 7, 8)
     console.log(rectangle.calculateArea());
     
+    // Q. 6
+//     Create an interface called Product with the following properties: id (number),
+// name (string), price (number), and category (string). Then, create a function
+// createProduct that accepts an object of type Product and returns it. Finally,
+// create a new product object and pass it to createProduct().
+interface Product {
+    id: number;
+    name: string;
+    price: number;
+    category: string;
+
+}
+function createProduct(product: Product)  { return product }
+
+const myProduct = createProduct({id: 123, name: 'Saad', price: 999, category: "mobile"})
+console.log(myProduct);
+
+// Question 7: Class Inheritance - Extending a Base Class
+// Create a base class Employee with name (string), salary (number), and a
+// method getDetails() that returns the employee&#39;s name and salary. Then, create
+// two subclasses: Developer with an additional property programmingLanguage
+// (string) and an overridden getDetails() method, and Designer with an additional
+// property toolUsed (string) and an overridden getDetails() method. Create
+// instances of both classes and call getDetails() on each.
+
+class Employee {
+    name: string;
+    salary: number;
+    constructor(name: string, salary:number) {
+        this.name = name
+        this.salary = salary
+    }
+    getDetails(){
+        return `Name is ${this.name} and Salary is ${this.salary}`
+    }
+}
+
+class Developer extends Employee {
+    programmingLanguage: string;
+    constructor( name: string, salary: number, programmingLanguage: string) {
+        super(name, salary)
+        this.programmingLanguage = programmingLanguage
+    }
+    getDetails(){
+        return this.programmingLanguage
+    }
+}
+
+class Designer extends Employee {
+    toolUsed: string;
+    constructor( name: string, salary: number, toolUsed: string) {
+        super(name, salary)
+        this.toolUsed = toolUsed
+    }
+    getDetails(){
+        return `${super.getDetails()}. Tool Used:${this.toolUsed}`
+    }
+}
+
+
+// let developer = Developer.getDetails('ahmed', 123, 'html')
+let developer = new  Developer ('ahmed', 123, 'html')
+let designer = new  Designer ('Ali', 1232, 'Canva')
+
+console.log(developer.getDetails());
+console.log(designer.getDetails());
+
+
+
+// Question 8: Access Modifiers - Using Private, Protected, and Readonly
+// Create a class Student with a public property name (string), a private property
+// grades (array of numbers), a protected property school (string), and a readonly
+// property studentID (number) that is initialized in the constructor. Implement
+// methods to add a grade to the grades array and get the average grade. Try
+// accessing the properties from inside and outside the class to test access
+// modifiers.
+
+
+class Student {
+    public name : string;
+    private grades : number[];
+    protected school : string;
+    readonly studentID : number;
+
+    constructor(name: string, grades: number[], school: string, studentID: number) {
+        this.name = name
+        this.grades = grades
+        this.school = school
+        this.studentID = studentID
+    }
+    addGrade() {
+        let total =  this.grades.reduce((a,b) => a + b , 0)
+        return total / this.grades.length
+    }
+}
+
+let student = new Student('ahmed', [100,99,93],  'islamic', 1);
+console.log(student);
+console.log(student.addGrade());
+
+
+
+
+
+
+
+
+
+
+
+// Question 9: Union Types and Type Guards
+// Create a type Response that can be either { success: true, data: string } or {
+// success: false, error: string }. Then, write a function handleResponse that takes
+// an argument of type Response and logs &quot;Data received: {data}&quot; if success is
+
+// true, and logs &quot;Error occurred: {error}&quot; if success is false. Use type guards to
+// differentiate between the two cases.
+
+
+type Response1 =  { success: true, data: string } | { success: false, error: string }
+
+function handleResponse(res : Response1) {
+    if (res.success === true) {
+        console.log(`Data Recieved: ${res.data}`);
+        
+    } else {
+        console.log(`Error occured: ${res.error}`);
+        
+    }
+    
+}
+handleResponse({success: true, data: "Hello World!"})
+handleResponse({success: false, error: "Data is not found!!!"})
+
+
+
+
+
+
+
+
+
+
+
+// Question 10: Abstract Classes - Creating and Extending
+// Create an abstract class Animal with a protected property species (string), a
+// constructor that sets the species, an abstract method makeSound() that returns a
+// string, and a concrete method getSpecies() that returns the species. Then, create
+// two classes: Dog with a makeSound() method that returns &quot;Woof!&quot;, and Cat with
+// a makeSound() method that returns &quot;Meow!&quot;. Create instances of both classes,
+// call makeSound(), and getSpecies().

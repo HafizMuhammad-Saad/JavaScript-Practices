@@ -140,4 +140,85 @@ const circle = new Circle('red', 4);
 console.log(circle.calculateArea());
 const rectangle = new Rectangle('green', 7, 8);
 console.log(rectangle.calculateArea());
+function createProduct(product) { return product; }
+const myProduct = createProduct({ id: 123, name: 'Saad', price: 999, category: "mobile" });
+console.log(myProduct);
+// Question 7: Class Inheritance - Extending a Base Class
+// Create a base class Employee with name (string), salary (number), and a
+// method getDetails() that returns the employee&#39;s name and salary. Then, create
+// two subclasses: Developer with an additional property programmingLanguage
+// (string) and an overridden getDetails() method, and Designer with an additional
+// property toolUsed (string) and an overridden getDetails() method. Create
+// instances of both classes and call getDetails() on each.
+class Employee {
+    constructor(name, salary) {
+        this.name = name;
+        this.salary = salary;
+    }
+    getDetails() {
+        return `Name is ${this.name} and Salary is ${this.salary}`;
+    }
+}
+class Developer extends Employee {
+    constructor(name, salary, programmingLanguage) {
+        super(name, salary);
+        this.programmingLanguage = programmingLanguage;
+    }
+    getDetails() {
+        return this.programmingLanguage;
+    }
+}
+class Designer extends Employee {
+    constructor(name, salary, toolUsed) {
+        super(name, salary);
+        this.toolUsed = toolUsed;
+    }
+    getDetails() {
+        return `${super.getDetails()}. Tool Used:${this.toolUsed}`;
+    }
+}
+// let developer = Developer.getDetails('ahmed', 123, 'html')
+let developer = new Developer('ahmed', 123, 'html');
+let designer = new Designer('Ali', 1232, 'Canva');
+console.log(developer.getDetails());
+console.log(designer.getDetails());
+// Question 8: Access Modifiers - Using Private, Protected, and Readonly
+// Create a class Student with a public property name (string), a private property
+// grades (array of numbers), a protected property school (string), and a readonly
+// property studentID (number) that is initialized in the constructor. Implement
+// methods to add a grade to the grades array and get the average grade. Try
+// accessing the properties from inside and outside the class to test access
+// modifiers.
+class Student {
+    constructor(name, grades, school, studentID) {
+        this.name = name;
+        this.grades = grades;
+        this.school = school;
+        this.studentID = studentID;
+    }
+    addGrade() {
+        let total = this.grades.reduce((a, b) => a + b, 0);
+        return total / this.grades.length;
+    }
+}
+let student = new Student('ahmed', [100, 99, 93], 'islamic', 1);
+console.log(student);
+console.log(student.addGrade());
+function handleResponse(res) {
+    if (res.success === true) {
+        console.log(`Data Recieved: ${res.data}`);
+    }
+    else {
+        console.log(`Error occured: ${res.error}`);
+    }
+}
+handleResponse({ success: true, data: "Hello World!" });
+handleResponse({ success: false, error: "Data is not found!!!" });
+// Question 10: Abstract Classes - Creating and Extending
+// Create an abstract class Animal with a protected property species (string), a
+// constructor that sets the species, an abstract method makeSound() that returns a
+// string, and a concrete method getSpecies() that returns the species. Then, create
+// two classes: Dog with a makeSound() method that returns &quot;Woof!&quot;, and Cat with
+// a makeSound() method that returns &quot;Meow!&quot;. Create instances of both classes,
+// call makeSound(), and getSpecies().
 //# sourceMappingURL=app.js.map
