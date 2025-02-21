@@ -221,4 +221,97 @@ handleResponse({ success: false, error: "Data is not found!!!" });
 // two classes: Dog with a makeSound() method that returns &quot;Woof!&quot;, and Cat with
 // a makeSound() method that returns &quot;Meow!&quot;. Create instances of both classes,
 // call makeSound(), and getSpecies().
+class Animal {
+    constructor(species) {
+        this.speccies = species;
+    }
+    getSpecies() {
+        return this.speccies;
+    }
+}
+class Dog extends Animal {
+    makeSound() {
+        return "Woof";
+    }
+}
+class Cat extends Animal {
+    makeSound() {
+        return "Meow";
+    }
+}
+const cat = new Cat('Poli');
+console.log(`Name of the cat: ${cat.getSpecies()} and the sound is ${cat.makeSound()}`);
+const dog = new Dog('Sphere');
+console.log(`Name of the dog: ${dog.getSpecies()} and the sound is ${dog.makeSound()}`);
+// Question 11: Generics - Creating a Generic Function with Index Search
+// Create a generic function findIndex&lt;T&gt;(arr: T[], value: T): number that takes an
+// array of any type and a value to search for. The function should return the index
+// of the value if found; otherwise, return -1. Call this function with different types of
+// arrays (e.g., an array of numbers, an array of strings) and log the results..
+function findIndex(arr, value) {
+    return arr.findIndex((f) => value === f);
+}
+console.log(findIndex([1, 2, 3, 4, 5, 7, 8, 9, 0, 2, 2, 4, 3,], 5));
+function useVehicle(vehicle) {
+    if ('drive' in vehicle) {
+        return vehicle.drive();
+    }
+    else {
+        return vehicle.ride();
+    }
+}
+const myCar1 = {
+    drive() {
+        return 'Driving a Car!';
+    }
+};
+const myBike1 = {
+    ride() {
+        return 'Riding a Bike!';
+    }
+};
+console.log(useVehicle(myCar1));
+console.log(useVehicle(myBike1));
+function describeEmployee(emp) {
+    console.log(emp);
+    return emp;
+}
+const fTE = { name: 'Ali', age: 10, jobTitle: 'dev' };
+const fTE1 = { name: 'Asghar', age: 20, jobTitle: 'designer' };
+describeEmployee(fTE);
+describeEmployee(fTE1);
+function makeSound(pet) {
+    if ('bark' in pet) {
+        console.log(pet.bark());
+    }
+    else {
+        console.log(pet.meow());
+    }
+}
+const myDog = {
+    bark() {
+        return 'Woolf!';
+    }
+};
+const myCat = {
+    meow() {
+        return 'Meow!';
+    }
+};
+makeSound(myDog);
+makeSound(myCat);
+class Circle1 {
+    constructor(radius) {
+        this.radius = radius;
+    }
+    calculateArea1() {
+        return Math.PI * this.radius * this.radius;
+    }
+    getType() {
+        return 'Circle';
+    }
+}
+const myCircle = new Circle1(10);
+console.log(myCircle.calculateArea1());
+console.log(myCircle.getType());
 //# sourceMappingURL=app.js.map

@@ -397,3 +397,186 @@ handleResponse({success: false, error: "Data is not found!!!"})
 // two classes: Dog with a makeSound() method that returns &quot;Woof!&quot;, and Cat with
 // a makeSound() method that returns &quot;Meow!&quot;. Create instances of both classes,
 // call makeSound(), and getSpecies().
+
+abstract class Animal {
+    protected speccies : string;
+    constructor(species: string) {
+        this.speccies = species
+    }
+    abstract makeSound() : string
+     getSpecies() {
+        return this.speccies;
+     }
+}
+class Dog extends Animal {
+    makeSound(): string {
+        return "Woof"
+    }
+}
+class Cat extends Animal {
+    makeSound(): string {
+        return "Meow"
+    }
+}
+
+const cat = new Cat('Poli')
+console.log(`Name of the cat: ${cat.getSpecies()} and the sound is ${cat.makeSound()}`);
+
+const dog = new Dog('Sphere');
+console.log(`Name of the dog: ${dog.getSpecies()} and the sound is ${dog.makeSound()}`);
+
+// Question 11: Generics - Creating a Generic Function with Index Search
+// Create a generic function findIndex&lt;T&gt;(arr: T[], value: T): number that takes an
+// array of any type and a value to search for. The function should return the index
+// of the value if found; otherwise, return -1. Call this function with different types of
+// arrays (e.g., an array of numbers, an array of strings) and log the results..
+
+function findIndex<T>(arr: T[], value: T): number {
+   return arr.findIndex((f) => value === f)
+}
+console.log(findIndex([1,2,3,4,5,7,8,9,0,2,2,4,3,], 5));
+
+
+// Question 12: Type Guards - Checking Object Types
+// Create two interfaces: Car with a property drive() that returns &quot;Driving a car!&quot;,
+// and Bike with a property ride() that returns &quot;Riding a bike!&quot;. Then, create a
+// function useVehicle(vehicle: Car | Bike) that calls drive() if it&#39;s a Car and calls
+// ride() if it&#39;s a Bike, using a type guard to differentiate between the two. Create
+// instances of Car and Bike, and pass them to useVehicle().
+
+interface Car1 {
+    drive(): string
+}
+interface Bike1 {
+    ride(): string
+}
+
+function useVehicle(vehicle : Car1 | Bike1) {
+    if('drive' in vehicle) {
+     return vehicle.drive()
+    } else {
+      return vehicle.ride()
+    }
+}
+const myCar1 : Car1 = {
+    drive()  {
+        return 'Driving a Car!'
+    }
+}
+const myBike1 : Bike1 = {
+    ride() {
+        return 'Riding a Bike!'
+    }
+}
+
+
+console.log(useVehicle(myCar1))
+console.log(useVehicle(myBike1))
+
+
+
+// Question 13: Interface Intersection - Merging Multiple Interfaces
+// Create two interfaces: Person with properties name (string) and age (number),
+// and Employee with property jobTitle (string). Then, create a new type
+// FullTimeEmployee that combines both interfaces using intersection (&amp;). Write a
+// function describeEmployee(emp: FullTimeEmployee) that logs the name, age,
+// and jobTitle. Create a FullTimeEmployee object and pass it to the function.
+
+interface Person {
+    name: string
+    age: number
+
+}
+
+interface Employee1 {
+    jobTitle: string
+
+}
+type FullTimeEmployee = Person & Employee1 
+
+function describeEmployee(emp:FullTimeEmployee) {
+    console.log(emp);
+    return emp
+    
+}
+
+const fTE: FullTimeEmployee = {name: 'Ali', age: 10, jobTitle: 'dev'}
+const fTE1: FullTimeEmployee = {name: 'Asghar', age: 20, jobTitle: 'designer'}
+describeEmployee(fTE)
+describeEmployee(fTE1)
+
+
+
+
+
+
+// Question 14: Interface Union - Handling Multiple Object Types
+// Create two interfaces: Dog with a method bark() returning &quot;Woof!&quot;, and Cat with
+// a method meow() returning &quot;Meow!&quot;. Then, create a type Pet that can be either a
+// Dog or a Cat. Write a function makeSound(pet: Pet) that calls bark() if it&#39;s a Dog
+
+// and calls meow() if it&#39;s a Cat, using a type guard to determine the correct method.
+// Create instances of Dog and Cat, and call makeSound() on both.
+
+interface DogNew {
+    bark() : string 
+}
+interface CatNew {
+    meow() : string
+}
+
+type Pet = CatNew | DogNew
+
+function makeSound(pet:Pet) {
+    if ( 'bark' in pet ) {
+       console.log(pet.bark());
+       
+    } else {
+        console.log(pet.meow())
+    }
+}
+
+const myDog: DogNew = {
+    bark() {
+        return 'Woolf!' 
+    }
+}
+const myCat: CatNew = {
+    meow() {
+        return 'Meow!' 
+    }
+}
+makeSound(myDog);
+makeSound(myCat);
+
+
+
+
+// Question 15: Implementing an Interface in a Class
+// Create an interface Shape with a method calculateArea(): number and a method
+// getType(): string. Then, create a class Circle that implements Shape with a
+// property radius (number), implements calculateArea() to return the area of the
+// circle, and implements getType() to return &quot;Circle&quot;. Create an instance of Circle,
+// set the radius, and call both methods.
+
+interface Shape1 {
+    calculateArea1() : number
+    getType(): string
+}
+class Circle1 implements Shape1 {
+    radius: number
+    constructor(radius: number) {
+        this.radius = radius
+    }
+    calculateArea1() {
+        return Math.PI * this.radius * this.radius
+    }
+    getType() {
+        return 'Circle'
+    }
+}
+
+const myCircle = new Circle1(10)
+console.log(myCircle.calculateArea1());
+console.log(myCircle.getType());
+
